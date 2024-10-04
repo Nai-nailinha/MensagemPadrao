@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from file_handler import check_for_update, load_templates, load_groups, message_templates_path, solucionadores_path
+from file_handler import check_for_update, load_templates, load_groups, message_templates_path, solucionadores_path, version_path
 from message_utils import generate_message
 from ui_components import setup_buttons, setup_text_widgets, setup_entry_fields, setup_action_buttons, copy_message
 from template_manager import open_management_window, open_group_management_window
@@ -9,10 +9,18 @@ from template_manager import open_management_window, open_group_management_windo
 root = tk.Tk()
 root.title("Gerador de Mensagens")
 
-# Checa atualizações
-has_update, latest_version = check_for_update()
+# Defina a variável para controlar a verificação de atualizações
+check_updates = True  # Altere para `True` quando quiser verificar atualizações
+
+if check_updates:
+    has_update, latest_version = check_for_update()
+else:
+    has_update, latest_version = False, None  # Definir valores padrão quando a verificação está desativada
+
+# Apenas verifica atualizações se `check_updates` for `True`
 if has_update:
-    messagebox.showinfo("Atualização Disponível", f"Nova versão disponível: {latest_version}")
+    print(f"Nova versão disponível: {latest_version}")
+    # Coloque aqui o código para informar o usuário ou fazer download da nova versão
 
 # Carrega os dados dos arquivos CSV
 df_templates = load_templates()
@@ -36,6 +44,9 @@ combo_box = setup_text_widgets(root, list(df_templates['Template']))
 template_visible = False
 template_text = tk.Text(root, wrap=tk.WORD, width=60, height=10)
 
+def get_current_version():
+    with open(version_path, 'r') as f:
+        return f.read().strip()
 
 def toggle_template():
     global template_visible
@@ -65,6 +76,10 @@ def toggle_template():
 
         template_visible = True
 
+# Exibe a versão na tela principal
+version_label = tk.Label(root, text=f"Versão: {get_current_version()}")
+version_label.grid(row=0, column=0, padx=10, pady=10, sticky='w')
+
 # Botões para gerar mensagem e exibir/ocultar template
 generate_button, toggle_button = setup_action_buttons(
     root,
@@ -86,3 +101,4 @@ copy_button.grid(row=18, column=0, padx=10, pady=10)
 
 # Rodar o loop principal da aplicação
 root.mainloop()
+

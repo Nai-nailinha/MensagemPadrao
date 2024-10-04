@@ -5,7 +5,7 @@ a = Analysis(
     ['MensagemPadrao.py'],
     pathex=[],
     binaries=[],
-    datas=[('message_templates.csv', '.'), ('solucionadores.csv', '.'), ('version.txt', '.')],
+    datas=[('version.txt', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
