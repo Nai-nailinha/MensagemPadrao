@@ -117,23 +117,28 @@ def open_group_management_window(parent_window, df_groups, groups_file):
 
     # Função para adicionar um novo grupo
     def add_group():
-        new_group = group_name_entry.get().strip()
-        if new_group:
-            new_row = pd.DataFrame({"Grupo": [new_group]})
-            updated_df = pd.concat([df_groups, new_row], ignore_index=True)
-            updated_df.to_csv(groups_file, index=False)
-            messagebox.showinfo("Adicionar", "Novo grupo adicionado com sucesso!")
-            group_window.destroy()
+        # Captura o valor do campo de entrada
+        new_group = add_group_entry.get().strip()
+
+        # Verifica se o campo está vazio
+        if not new_group:
+            messagebox.showerror("Erro", "Preencha o campo antes de adicionar um novo grupo.")
+            return
+
+        # Adiciona o novo grupo ao DataFrame e atualiza o ComboBox
+        if new_group not in df_groups['Grupo'].values:
+            df_groups.loc[len(df_groups)] = [new_group]
+            messagebox.showinfo("Sucesso", "Novo grupo adicionado com sucesso!")
         else:
-            messagebox.showerror("Erro", "Preencha o campo de grupo antes de adicionar.")
+            messagebox.showerror("Erro", "Este grupo já existe.")
 
     # Interface para gerenciamento de grupos
     tk.Label(group_window, text="Selecionar Grupo para Editar ou Excluir").grid(row=0, column=0, padx=10, pady=5)
-    group_combo_box = ttk.Combobox(group_window, values=list(df_groups['Grupo']))
+    group_combo_box = ttk.Combobox(group_window, values=list(df_groups['Grupo']), width=60)
     group_combo_box.grid(row=1, column=0, padx=10, pady=5)
 
     tk.Label(group_window, text="Nome do Grupo").grid(row=2, column=0, padx=10, pady=5)
-    group_name_entry = tk.Entry(group_window, width=40)
+    group_name_entry = tk.Entry(group_window, width=60)
     group_name_entry.grid(row=3, column=0, padx=10, pady=5)
 
     save_button = tk.Button(group_window, text="Salvar Alterações", command=save_group_edit)
