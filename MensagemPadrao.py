@@ -13,14 +13,7 @@ root.title("Gerador de Mensagens")
 check_updates = True  # Altere para `True` quando quiser verificar atualizações
 
 if check_updates:
-    has_update, latest_version = check_for_update()
-else:
-    has_update, latest_version = False, None  # Definir valores padrão quando a verificação está desativada
-
-# Apenas verifica atualizações se `check_updates` for `True`
-if has_update:
-    print(f"Nova versão disponível: {latest_version}")
-    # Coloque aqui o código para informar o usuário ou fazer download da nova versão
+    check_for_update()
 
 # Carrega os dados dos arquivos CSV
 df_templates = load_templates()
