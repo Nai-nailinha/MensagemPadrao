@@ -1,29 +1,6 @@
 Template,Message,Obrigatório
-Chamado aberto,"Prezado(a) [Nome do Cliente], bom dia! Tudo bem?!
-        
-Gostaria de agradecer por contatar a nossa equipe.
-Estamos avaliando o seu chamado e caso seja necessário mais informações entraremos em contato.
+Chamado resolvido,"Prezado(a) [Nome do Cliente],
 
-Se precisar de qualquer assistência adicional ou tiver alguma dúvida, por favor, não hesite em entrar em contato conosco. Estamos à disposição para ajudar.
-
-A equipe [grupo solucionador] está à disposição.
-
-Atenciosamente,
-[responsavel]","Nome do Cliente, grupo solucionador, responsavel"
-Solicitação de informações ao cliente,"[Nome do cliente],
-
-Para realização deste serviço, solicitamos as seguintes informações:
-
-[Informação]
-
-*o chamado está com o status pendente devido à falta dessas informações.
-Agradecemos a sua colaboração e aguardamos retorno para seguir com a tratativa.
-
-A equipe [grupo solucionador] está à disposição.
-
-Atenciosamente,
-[responsavel]","Nome do Cliente, Informação, grupo solucionador, responsavel"
-Chamado concluído,"[Nome do cliente],
 Gostaríamos de informar que concluímos o atendimento relacionado à sua solicitação:
 
 [Informação]
@@ -32,39 +9,5 @@ Agradecemos seu contato e colaboração durante este processo. Em breve você re
 
 A equipe [grupo solucionador] está à disposição.
 
-Atenciosamente,
-[responsavel]","Nome do cliente, Informação, grupo solucionador, responsável"
-Falta de comunicação com o cliente,"Prezado(a) [Nome do cliente],
-
-Estamos aguardando as informações solicitadas para prosseguir com seu chamado. Por favor, verifique e forneça os detalhes necessários o quanto antes. Sem essas informações, não podemos avançar com sua solicitação.
-
-Estamos aqui para ajudar no que for necessário.
-A equipe [grupo solucionador] está à disposição.
-
-Atenciosamente,
-[responsavel]","Nome do cliente, grupo solucionador, responsável"
-Informações durante o andamento do chamado,"Prezado(a) [Nome do Cliente], tudo bem?!
-
-Gostaríamos de fornecer uma atualização sobre o andamento da sua solicitação:
-
-[Informação]
-
-Estamos comprometidos em garantir que tudo esteja progredindo conforme o planejado e estamos trabalhando cuidadosamente para atender às suas expectativas.
-O chamado seguirá com o status [status].
-
-A equipe [grupo solucionador] está à disposição.
-
-Atenciosamente,
-[responsavel]","Nome do Cliente, Informação, grupo solucionador, status, responsável"
-Chamado Cancelado,"Prezado(a) [Nome do Cliente],
-
-Gostaríamos de informar que o chamado relacionado à sua solicitação foi cancelado. O motivo do cancelamento é o seguinte:
-
-[Informação].
-
-Caso tenha alguma dúvida ou precise de mais informações, por favor, não hesite em nos contatar. Estamos à disposição para ajudar.
-
-A equipe [grupo solucionador] está à disposição.
-
-Atenciosamente,
-[responsavel]","Nome do cliente, Informação, grupo solucionador, responsável"
+Atenciosamente, 
+[responsavel]","[Nome do Cliente], [Informação], [responsavel]"

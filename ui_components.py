@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox  # Adicione `ttk` aqui
 
-def setup_buttons(root, df_templates, df_groups, message_templates_path, solucionadores_path, open_management_window, open_group_management_window):
+def setup_buttons(root, df_templates, df_groups, message_templates_path, solucionadores_path, open_management_window, open_group_management_window, group_combo_box):
     manage_frame = tk.Frame(root)
     manage_frame.grid(row=0, column=0, columnspan=2, pady=10)
 
@@ -10,7 +10,7 @@ def setup_buttons(root, df_templates, df_groups, message_templates_path, solucio
     manage_button.grid(row=0, column=0, padx=10)
 
     manage_groups_button = tk.Button(manage_frame, text="Gerenciar Grupos",
-                                     command=lambda: open_group_management_window(root, df_groups, solucionadores_path))
+                                     command=lambda: open_group_management_window(root, df_groups, solucionadores_path, group_combo_box))
     manage_groups_button.grid(row=0, column=1, padx=10)
 
 def setup_text_widgets(root, combo_values):
@@ -60,7 +60,7 @@ def setup_entry_fields(root, group_values):
     responsavel_label = tk.Label(root, text="Responsável:")
     responsavel_label.grid(row=10, column=0, sticky='w', padx=10)
     responsavel_entry = tk.Entry(root, width=30)
-    responsavel_entry.grid(row=12, column=0, padx=10, pady=5)
+    responsavel_entry.grid(row=10, column=0, padx=10, pady=5)
 
     # ComboBox para selecionar grupos de solucionadores
     group_label = tk.Label(root, text="Grupo Solucionador:")

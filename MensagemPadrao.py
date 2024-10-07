@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
-from file_handler import check_for_update, load_templates, load_groups, message_templates_path, solucionadores_path, version_path
+from file_handler import check_for_update, load_templates, load_groups, version_path
 from message_utils import generate_message
 from ui_components import setup_buttons, setup_text_widgets, setup_entry_fields, setup_action_buttons, copy_message
 from template_manager import open_management_window, open_group_management_window
+from file_handler import message_templates_path, solucionadores_path
 
 # Inicializa a interface principal
 root = tk.Tk()
@@ -22,9 +23,6 @@ df_groups = load_groups()
 # Lista de valores para o ComboBox de grupos solucionadores
 group_values = list(df_groups['Grupo'])
 
-# Configura os botões de gerenciamento
-setup_buttons(root, df_templates, df_groups, message_templates_path, solucionadores_path, open_management_window, open_group_management_window)
-
 # Configura os widgets de texto e captura os valores
 combo_box = setup_text_widgets(root, list(df_templates['Template']))
 
@@ -32,6 +30,9 @@ combo_box = setup_text_widgets(root, list(df_templates['Template']))
 (client_name_label, client_name_entry, info_label, info_entry,
  status_label, status_entry, responsavel_label, responsavel_entry,
  group_label, group_combo_box) = setup_entry_fields(root, group_values)
+
+# Agora, `group_combo_box` está definido, e você pode passá-lo para `setup_buttons`.
+setup_buttons(root, df_templates, df_groups, message_templates_path, solucionadores_path, open_management_window, open_group_management_window, group_combo_box)
 
 # Função para exibir/ocultar o template original
 template_visible = False
@@ -94,4 +95,3 @@ copy_button.grid(row=18, column=0, padx=10, pady=10)
 
 # Rodar o loop principal da aplicação
 root.mainloop()
-
