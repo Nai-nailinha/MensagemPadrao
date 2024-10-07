@@ -13,7 +13,7 @@ root.title("Gerador de Mensagens")
 check_updates = True  # Altere para `True` quando quiser verificar atualizações
 
 if check_updates:
-    check_for_update()
+    check_for_update(root)
 
 # Carrega os dados dos arquivos CSV
 df_templates = load_templates()

@@ -57,7 +57,8 @@ def load_groups():
     # Carrega o arquivo de grupos do diretório de dados do usuário
     return pd.read_csv(user_groups_path)
 
-def check_for_update():
+
+def check_for_update(root):
     # URL para verificar a versão no GitHub
     version_url = "https://raw.githubusercontent.com/Nai-nailinha/MensagemPadrao/master/version.txt"
     download_url = "https://github.com/Nai-nailinha/MensagemPadrao/releases/latest/download/MensagemPadrao.exe"
@@ -70,16 +71,18 @@ def check_for_update():
         if response.status_code == 200:
             latest_version = response.text.strip()
             if latest_version != current_version:
-                root = tk.Tk()
+                # Oculta temporariamente a janela principal
                 root.withdraw()
+
                 update = messagebox.askyesno(
                     "Atualização Disponível",
                     f"Nova versão disponível: {latest_version}\nDeseja baixar e atualizar agora?"
                 )
-                root.destroy()
+
+                # Restaura a janela principal após a verificação
+                root.deiconify()
 
                 if update:
-                    # Baixa a nova versão do .exe
                     new_exe_path = os.path.join(user_data_dir, "MensagemPadrao_new.exe")
                     response = requests.get(download_url)
                     with open(new_exe_path, 'wb') as f:
@@ -91,4 +94,3 @@ def check_for_update():
                     )
     except Exception as e:
         pass  # Ignore qualquer erro durante a verificação de atualização
-
