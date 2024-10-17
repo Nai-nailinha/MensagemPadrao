@@ -1,16 +1,17 @@
 import tkinter as tk
-from tkinter import ttk, messagebox  # Adicione `ttk` aqui
+from tkinter import ttk, messagebox
 
-def setup_buttons(root, df_templates, df_groups, message_templates_path, solucionadores_path, open_management_window, open_group_management_window, group_combo_box):
+def setup_buttons(root, df_templates, df_groups, message_templates_path, solucionadores_path, open_management_window, open_group_management_window, group_combo_box, combo_box, reload_main_screen):
+    # Lógica da função
     manage_frame = tk.Frame(root)
     manage_frame.grid(row=0, column=0, columnspan=2, pady=10)
 
     manage_button = tk.Button(manage_frame, text="Gerenciar Templates",
-                              command=lambda: open_management_window(root, df_templates, message_templates_path))
+                              command=lambda: open_management_window(root, df_templates, message_templates_path, combo_box, reload_main_screen))
     manage_button.grid(row=0, column=0, padx=10)
 
     manage_groups_button = tk.Button(manage_frame, text="Gerenciar Grupos",
-                                     command=lambda: open_group_management_window(root, df_groups, solucionadores_path, group_combo_box))
+                                     command=lambda: open_group_management_window(root, df_groups, solucionadores_path, group_combo_box, reload_main_screen))
     manage_groups_button.grid(row=0, column=1, padx=10)
 
 def setup_text_widgets(root, combo_values):
