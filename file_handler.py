@@ -2,7 +2,7 @@ import os
 import sys
 import requests
 import pandas as pd
-import tkinter as tk
+from tkinter import filedialog
 import requests
 import tkinter as tk
 import shutil
@@ -65,32 +65,44 @@ def load_groups():
         print(f"Erro ao carregar grupos: {e}")
         return pd.DataFrame(columns=["Grupo"])  # Retorna um DataFrame vazio
 
+
 # Verificar versão e baixar atualização
 def check_for_update(root, version_label):
-    version_url = "https://raw.githubusercontent.com/Nai-nailinha/MensagemPadrao/master/version.txt"
-    download_url = "https://github.com/Nai-nailinha/MensagemPadrao/releases/latest/download/MensagemPadraoSetup.exe"
+    version_url = "https://raw.githubusercontent.com/Nai-nailinha/MensagemPadrao/master/version.txt"  # URL Raw correta
+    download_url = "https://api.github.com/repos/Nai-nailinha/MensagemPadrao/releases/latest"
 
     version_label.grid(row=20, column=0, padx=10, pady=5)
 
     try:
         with open(version_path, 'r') as f:
             current_version = f.read().strip()
+            print(f"Versão atual local: {current_version}")  # Debugging
 
-        response = requests.get(version_url, timeout=30)  # Timeout de 10 segundos
+        response = requests.get(version_url, timeout=30)  # Timeout de 30 segundos
         if response.status_code == 200:
             latest_version = response.text.strip()
+            print(f"Última versão disponível: {latest_version}")  # Debugging
 
             # Função para comparar versões
             def compare_versions(current_version, latest_version):
                 current_version_parts = [int(part) for part in current_version.split('.')]
                 latest_version_parts = [int(part) for part in latest_version.split('.')]
 
-                # Comparar versões parte por parte (major, minor, patch)
-                return latest_version_parts > current_version_parts
+                # Debugging: Ver os números de versão lado a lado
+                print(f"Comparando versões: Local: {current_version_parts} - Remoto: {latest_version_parts}")
+
+                # Comparar cada parte da versão (major, minor, patch)
+                for current, latest in zip(current_version_parts, latest_version_parts):
+                    if latest > current:
+                        return True
+                    elif latest < current:
+                        return False
+                return False  # Se forem iguais
 
             # Verifica se a nova versão é maior
             if compare_versions(current_version, latest_version):
                 version_label.config(text=f"Nova versão disponível: {latest_version}.", fg="red")
+                print("Nova versão disponível!")  # Debugging
 
                 # Checar se o botão de download já existe e não duplicá-lo
                 if not hasattr(root, 'download_button'):
@@ -99,6 +111,7 @@ def check_for_update(root, version_label):
                     root.download_button.grid(row=21, column=0, padx=10, pady=10)
             else:
                 version_label.config(text=f"Versão atual: {current_version}", fg="green")
+                print("Aplicativo já está atualizado.")  # Debugging
         else:
             version_label.config(text="Erro ao verificar a versão. Código: " + str(response.status_code), fg="red")
 
@@ -109,18 +122,31 @@ def check_for_update(root, version_label):
     except Exception as e:
         version_label.config(text=f"Erro ao verificar atualização: {str(e)}", fg="red")
 
-# Função para baixar a atualização (mantém o rótulo de download como está)
+# Função para baixar a atualização
 def download_update(download_url, update_label):
     try:
+        # Solicita ao usuário um local para salvar o arquivo de instalação
+        setup_path = filedialog.asksaveasfilename(defaultextension=".exe",
+                                                  initialfile="MensagemPadraoSetup.exe",
+                                                  filetypes=[("Executáveis", "*.exe")])
+
+        # Se o usuário não selecionar um local, cancela o download
+        if not setup_path:
+            update_label.config(text="Download cancelado pelo usuário.", fg="red")
+            return
+
+        # Faz o download do arquivo
         response = requests.get(download_url, stream=True)
         if response.status_code == 200:
-            setup_path = os.path.join(user_data_dir, 'MensagemPadraoSetup.exe')
             with open(setup_path, 'wb') as f:
-                f.write(response.content)
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk:
+                        f.write(chunk)
 
             update_label.config(text="Atualização Baixada. Execute o instalador para concluir.", fg="green")
 
-            if os.name == 'nt':  # Executa apenas no Windows
+            # Oferece para executar o instalador (apenas no Windows)
+            if os.name == 'nt':
                 os.startfile(setup_path)
         else:
             update_label.config(text="Erro ao baixar a atualização. Código: " + str(response.status_code), fg="red")
