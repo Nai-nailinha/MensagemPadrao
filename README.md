@@ -1,72 +1,82 @@
-# mensagemPadrao
+# MensagemPadrao
 
-**mensagemPadrao** é uma ferramenta simples para criar, personalizar e organizar mensagens padrão de forma rápida. Ideal para atendimento ao cliente, comunicação interna ou qualquer outra situação que exija mensagens rápidas e padronizadas.
+MensagemPadrao é um aplicativo que permite gerar e personalizar mensagens a partir de templates. O usuário pode editar, criar ou excluir templates e grupos de solucionadores conforme necessário.
 
-## Índice
-- [Recursos](#recursos)
+## Sumário
+- [Descrição](#descrição)
 - [Instalação](#instalação)
 - [Uso](#uso)
-- [Atualizações](#atualizações)
+- [Funcionalidades](#funcionalidades)
+- [Contribuindo](#contribuindo)
 - [Licença](#licença)
 
----
-
-## Recursos
-
-- **Templates Personalizáveis**: Crie e gerencie diferentes modelos de mensagens.
-- **Campos Personalizáveis e Validação**: Adicione detalhes como nome do cliente, status, responsável... Os campos obrigatórios são validados automaticamente.
-- **Atualizações Automáticas**: Verifica se há uma nova versão disponível diretamente no GitHub.
-- **Gerenciamento Fácil via CSV**: Importação e exportação de templates e grupos solucionadores através de arquivos CSV.
-- **Interface Amigável**: Design simples e fácil de usar, garantindo uma experiência tranquila para todos os usuários.
-
----
+## Descrição
+O MensagemPadrao foi desenvolvido para facilitar a criação de mensagens padronizadas que podem ser personalizadas com dados variáveis, como nome do cliente, status do chamado, grupo de solucionadores e outras informações relevantes. O aplicativo permite a gestão completa de templates e grupos, tornando a comunicação rápida e eficiente.
 
 ## Instalação
 
-### Pré-requisitos
-- **Python 3.x**: Certifique-se de que você tem o Python instalado em sua máquina. Você pode baixar a última versão [aqui](https://www.python.org/downloads/).
-- **Bibliotecas necessárias**: As bibliotecas necessárias estão listadas no arquivo `requirements.txt`. Para instalá-las, use:
+1. **Baixe ou clone o repositório.**
     ```bash
-    pip install -r requirements.txt
+    git clone https://github.com/Nai-nailinha/MensagemPadrao.git
     ```
 
-### Clonando o Repositório
-1. Clone o repositório do GitHub:
+2. **Instale as dependências.**
+    - Certifique-se de que você tem o Python 3.x instalado e crie um ambiente virtual.
     ```bash
-    git clone https://github.com/Nai-nailinha/mensagemPadrao.git
-    ```
-2. Navegue até a pasta do projeto:
-    ```bash
-    cd mensagemPadrao
+    python -m venv venv
     ```
 
----
+    - Ative o ambiente virtual:
+        - No Windows:
+          ```bash
+          venv\Scripts\activate
+          ```
+        - No Linux/macOS:
+          ```bash
+          source venv/bin/activate
+          ```
+
+    - Instale as dependências necessárias:
+      ```bash
+      pip install -r requirements.txt
+      ```
+
+3. **Configure os arquivos CSV.**
+    - O aplicativo cria automaticamente dois arquivos CSV para armazenar templates de mensagens e grupos de solucionadores. Eles são armazenados no diretório do usuário:
+        - `message_templates.csv`: Templates de mensagens.
+        - `solucionadores.csv`: Lista de grupos de solucionadores.
 
 ## Uso
+1. **Execute o aplicativo.**
+    - Acesse o diretório do projeto e execute o script principal:
+      ```bash
+      python MensagemPadrao.py
+      ```
 
-### Executando o Aplicativo
-1. Certifique-se de que está na pasta do projeto.
-2. Execute o aplicativo:
-    ```bash
-    python MensagemPadrao.py
-    ```
+2. **Gerencie templates e grupos.**
+    - Use as opções de menu para adicionar, editar ou excluir templates de mensagens e grupos de solucionadores.
 
-### Funcionalidades Principais
-1. **Selecione uma Mensagem**: Use o `ComboBox` para escolher um template de mensagem existente.
-2. **Preencha os Campos Necessários**: Insira informações específicas (nome do cliente, status, etc.).
-3. **Gere a Mensagem**: Clique no botão para gerar a mensagem completa e personalizável.
-4. **Copie ou Edite**: A mensagem gerada pode ser copiada para ser usada em outros aplicativos ou editada diretamente no "mensagemPadrao".
+3. **Personalize e gere mensagens.**
+    - Escolha um template, preencha as informações variáveis (nome do cliente, status, etc.), e gere a mensagem para copiá-la ou utilizá-la conforme necessário.
 
-### Gerenciamento de Templates e Grupos
-- **Gerenciar Templates**: Crie, edite ou exclua templates de mensagens. Todos os templates são armazenados em um arquivo CSV (`message_templates.csv`).
-- **Gerenciar Grupos**: Adicione, edite ou remova grupos solucionadores que também são gerenciados via CSV (`solucionadores.csv`).
+## Funcionalidades
+- **Gerenciamento de Templates**: Criação, edição e exclusão de templates de mensagens, com placeholders para personalização dinâmica.
+- **Gerenciamento de Grupos**: Adição, edição e remoção de grupos de solucionadores.
+- **Atualizações Automáticas**: Verificação automática de novas versões do aplicativo com opção de atualização.
 
----
+## Estrutura do Projeto
+O projeto segue uma organização modular para facilitar a manutenção e evolução do código:
+- `file_handler.py`: Gerencia a leitura, gravação e cópia de arquivos CSV de templates e grupos.
+- `MensagemPadrao.py`: Script principal para execução do aplicativo.
+- `template_manager.py`: Gerencia a interface de criação, edição e exclusão de templates e grupos.
 
-## Atualizações
+## Releases
+- As versões do aplicativo são publicadas na seção de *Releases* no GitHub. Para baixar a última versão, acesse a página de [Releases](https://github.com/Nai-nailinha/MensagemPadrao/releases).
+- Ao iniciar o aplicativo, ele verifica automaticamente se há uma nova versão disponível. Caso uma nova versão seja encontrada, o usuário pode escolher entre atualizar ou continuar usando a versão atual.
 
-O "mensagemPadrao" verifica automaticamente atualizações. Caso uma nova versão esteja disponível, o aplicativo notificará o usuário.
+## Contribuindo
+Atualmente, contribuições externas não são aceitas. Este projeto é mantido por um único desenvolvedor.
 
-Para verificar atualizações manualmente:
-```bash
-python check_for_update.py
+## Licença
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais informações.
+ 
