@@ -35,25 +35,16 @@ def get_resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-def convert_png_to_ico(png_path, ico_output):
-    # Carregar o arquivo PNG
-    img = Image.open(png_path)
-
-    # Converter e salvar como .ico com múltiplas resoluções
-    img.save(ico_output, format='ICO', sizes=[(16, 16), (32, 32), (48, 48), (256, 256)])
-
-
 # Função para usar o ícone no Tkinter
 def use_icon_in_app(root, ico_path):
     root.iconbitmap(ico_path)
 
 
-# Caminho para o arquivo PNG e o arquivo .ico convertido
-png_path = get_resource_path("icon.png")
+# Caminho para o arquivo .ico
 ico_output = get_resource_path("converted_icon.ico")
 
-# Converter o PNG para ICO
-convert_png_to_ico(png_path, ico_output)
+# Usar o ícone .ico no aplicativo
+use_icon_in_app(root, ico_output)
 
 # Defina a variável para controlar a verificação de atualizações
 check_updates = True  # Altere para `True` quando quiser verificar atualizações
