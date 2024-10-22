@@ -15,7 +15,7 @@ def setup_buttons(root, df_templates, df_groups, message_templates_path, solucio
     manage_groups_button.grid(row=0, column=1, padx=10)
 
 def setup_text_widgets(root, combo_values):
-    combo_box = ttk.Combobox(root, values=combo_values)  # Agora `ttk` está definido
+    combo_box = ttk.Combobox(root, values=combo_values)
     combo_box.grid(row=2, column=0, padx=10, pady=5)
     return combo_box
 
@@ -64,8 +64,8 @@ def setup_entry_fields(root, group_values):
     responsavel_entry.grid(row=10, column=0, padx=10, pady=5)
 
     # ComboBox para selecionar grupos de solucionadores
-    group_label = tk.Label(root, text="Grupo Solucionador:")
-    group_label.grid(row=12, column=0, sticky='w', padx=10)
+    group_label = tk.Label(root, text="Grupo:")
+    group_label.grid(row=13, column=0, sticky='w', padx=10)
     group_combo_box = ttk.Combobox(root, values=group_values, width=60)  # Adiciona os valores ao ComboBox
     group_combo_box.grid(row=13, column=0, padx=10, pady=5)
 

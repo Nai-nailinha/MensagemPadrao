@@ -5,7 +5,7 @@ a = Analysis(
     ['MensagemPadrao.py'],
     pathex=[],
     binaries=[],
-    datas=[('version.txt', '.')],
+    datas=[('message_icon_new.ico', '.'), ('version.txt', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,4 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['C:\\Users\\enailel\\PycharmProjects\\MensagemPadrao\\message_icon_new.ico'],
 )

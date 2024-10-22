@@ -104,11 +104,14 @@ def check_for_update(root, version_label):
                 version_label.config(text=f"Nova versão disponível: {latest_version}.", fg="red")
                 print("Nova versão disponível!")  # Debugging
 
-                # Checar se o botão de download já existe e não duplicá-lo
+                # Verifica se o botão de download já existe
                 if not hasattr(root, 'download_button'):
                     root.download_button = tk.Button(root, text="Baixar Atualização",
                                                      command=lambda: download_update(download_url, version_label))
-                    root.download_button.grid(row=21, column=0, padx=10, pady=10)
+                    root.download_button.grid(row=21, column=0, columnspan=2, padx=10, pady=10)
+
+                    # Atualiza o layout para garantir que o botão apareça corretamente
+                    root.update_idletasks()  # Atualiza o layout sem mexer na geometria da janela
             else:
                 version_label.config(text=f"Versão atual: {current_version}", fg="green")
                 print("Aplicativo já está atualizado.")  # Debugging

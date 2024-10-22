@@ -278,6 +278,14 @@ def open_management_window(parent_window, df_templates, file_path, combo_box, re
                                       command=lambda: show_section(edit_frame, create_frame))
     create_section_button.grid(row=0, column=1, padx=10)
 
+    # Permitir redimensionamento
+    management_window.resizable(True, True)
+
+    # Ajustar o tamanho com base no conteúdo
+    management_window.update_idletasks()
+    management_window.update_idletasks()
+    management_window.geometry(f"{management_window.winfo_width()}x{management_window.winfo_height()}")
+
     show_section(edit_frame, create_frame)
 
 # Função para abrir a janela de gerenciamento de grupos solucionadores
@@ -470,4 +478,12 @@ def open_group_management_window(parent_window, df_groups, groups_file, main_gro
                            command=lambda: add_group(add_group_entry, df_groups, groups_file, status_label,
                                                      group_combo_box))
     add_button.grid(row=9, column=0, padx=10, pady=10)
+
+    # Permitir redimensionamento
+    group_window.resizable(True, True)
+
+    # Ajustar o tamanho com base no conteúdo
+    group_window.update_idletasks()
+    group_window.geometry(f"{group_window.winfo_width()}x{group_window.winfo_height()}")
+
 

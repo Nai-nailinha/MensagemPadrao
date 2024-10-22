@@ -18,12 +18,42 @@ root.title("Mensagem Padrão")
 style = ttk.Style()
 style.theme_use('clam')
 
-# Carrega a imagem e define como ícone do aplicativo
-img = Image.open("icon.ico")
-icon = ImageTk.PhotoImage(img)
+import os
+import sys
+from PIL import Image
 
-# Define a imagem como o ícone da janela (o ícone no topo da janela e na barra de tarefas)
-root.iconphoto(False, icon)
+
+def get_resource_path(relative_path):
+    """Obter o caminho correto do arquivo, dependendo se está empacotado ou não."""
+    if getattr(sys, 'frozen', False):
+        # O aplicativo está empacotado
+        base_path = sys._MEIPASS
+    else:
+        # Modo de desenvolvimento
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+def convert_png_to_ico(png_path, ico_output):
+    # Carregar o arquivo PNG
+    img = Image.open(png_path)
+
+    # Converter e salvar como .ico com múltiplas resoluções
+    img.save(ico_output, format='ICO', sizes=[(16, 16), (32, 32), (48, 48), (256, 256)])
+
+
+# Função para usar o ícone no Tkinter
+def use_icon_in_app(root, ico_path):
+    root.iconbitmap(ico_path)
+
+
+# Caminho para o arquivo PNG e o arquivo .ico convertido
+png_path = get_resource_path("icon.png")
+ico_output = get_resource_path("converted_icon.ico")
+
+# Converter o PNG para ICO
+convert_png_to_ico(png_path, ico_output)
 
 # Defina a variável para controlar a verificação de atualizações
 check_updates = True  # Altere para `True` quando quiser verificar atualizações
@@ -123,6 +153,7 @@ def toggle_template():
         # Ocultar o campo de texto do template original
         template_text.grid_remove()
         toggle_button.config(text="Exibir Template Original")
+        root.geometry(f"{root.winfo_width()}x{root.winfo_height()}")  # Ajusta a geometria da janela
         template_visible = False
     else:
         # Tente encontrar o template correto no DataFrame
@@ -132,6 +163,7 @@ def toggle_template():
             template_text.insert(tk.END, base_message)
             template_text.grid()
             toggle_button.config(text="Ocultar Template Original")
+            root.geometry(f"{root.winfo_width()}x{root.winfo_height()}")  # Ajusta a geometria da janela
         except IndexError:
             # Caso o template não seja encontrado
             messagebox.showerror("Erro", f"Não foi possível encontrar a mensagem padrão para '{selected_template}'.")
@@ -175,12 +207,21 @@ template_text.grid_remove()
 
 # Botão para copiar a mensagem gerada
 copy_button = tk.Button(root, text="Copiar Mensagem", command=copy_menssage)
-copy_button.grid(row=18, column=0, pady=10, ipadx=10, ipady=5)  # Usando grid na linha correta
+copy_button.grid(row=18, column=0, pady=10, ipadx=10, ipady=5)
 
 # Label que mostra a confirmação
 copy_label = tk.Label(root, text="", font=("Helvetica", 10))
 copy_label.grid(row=18, column=0, pady=5)
 copy_label.grid_remove()
+
+# Permitir redimensionamento da janela
+root.resizable(True, True)
+
+# Atualiza o layout e ajusta o tamanho da janela com base no conteúdo
+root.update_idletasks()  # Recalcula o layout
+root.geometry(f"{root.winfo_width()}x{root.winfo_height()}")  # Ajusta a geometria da janela
+
+use_icon_in_app(root, ico_output)
 
 # Rodar o loop principal da aplicação
 root.mainloop()
